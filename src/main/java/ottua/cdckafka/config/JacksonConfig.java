@@ -37,7 +37,7 @@ public class JacksonConfig {
 
 
     public static class CustomLocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-        private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+        private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US);
 
         @Override
         public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -48,13 +48,13 @@ public class JacksonConfig {
     }
 
     public static class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-        private static final ZoneId ZONE_ID = ZoneId.of("Asia/Seoul");
+        private static final ZoneId ZONE_ID = ZoneId.of("UTC");
 
         @Override
         public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             long unixTime = jsonParser.getLongValue();
 
-            return LocalDateTime.ofInstant(Instant.ofEpochMilli(unixTime/1000), ZONE_ID);
+            return LocalDateTime.ofInstant(Instant.ofEpochMilli(unixTime), ZONE_ID);
         }
     }
 }
