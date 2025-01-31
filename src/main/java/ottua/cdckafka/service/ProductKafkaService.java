@@ -1,8 +1,8 @@
 package ottua.cdckafka.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ottua.cdckafka.common.UuidFormatter;
 import ottua.cdckafka.dto.ProductTopic;
@@ -28,6 +28,8 @@ public class ProductKafkaService {
     }
 
     public void delete(ProductTopic productTopic) {
-        productRepository.findById(UUID.fromString(UuidFormatter.replaceUuid(productTopic.getId()))).ifPresent(productRepository::delete);
+        Product product = productRepository.findById(UUID.fromString(UuidFormatter.replaceUuid(productTopic.getId())))
+                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        productRepository.delete(product);
     }
 }
