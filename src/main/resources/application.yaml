@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ProductDB}?serverTimezone=Asia/Seoul
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:1234}
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        ddl-auto: update
+
+  kafka:
+    consumer:
+      enable-auto-commit: false
+
+server:
+  port: ${SERVER_PORT:8085}
+
+application:
+  kafka-property:
+    enabled: true
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:19092,localhost:29092,localhost:39092}
+    group-id: ${KAFKA_GROUP_ID:query-service-consumer}
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
