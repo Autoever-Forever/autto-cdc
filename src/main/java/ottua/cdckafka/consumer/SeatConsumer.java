@@ -18,7 +18,7 @@ public class SeatConsumer {
     private final SeatKafkaService seatKafkaService;
     private final ObjectMapper objectMapper;
 
-    @KafkaListener(topics="db.AuttoDB.seat_by_date_inventory")
+    @KafkaListener(topics="db.ProductDB.seat_by_date_inventory")
     public void seatKafkaListener(ConsumerRecord<String, String> consumerRecord) {
         try {
             String value = consumerRecord.value();

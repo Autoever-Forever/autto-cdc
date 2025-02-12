@@ -18,7 +18,7 @@ public class ProductConsumer {
     private final ProductKafkaService productKafkaService;
     private final ObjectMapper objectMapper;
 
-    @KafkaListener(topics="db.AuttoDB.product")
+    @KafkaListener(topics="db.ProductDB.product")
     public void productKafkaListener(ConsumerRecord<String, String> consumerRecord) {
         try {
             String value = consumerRecord.value();
